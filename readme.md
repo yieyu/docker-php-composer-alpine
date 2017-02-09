@@ -16,15 +16,14 @@ docker pull yieyu/php7
 
 Adding these 3 lines into ~/.bash_aliases:
 ```
-START_DOCKER='docker run --rm -ti -v `pwd`:/app -u `id -u`:`id -g` $DOCKER_PARAM'
-alias php="$START_DOCKER yieyu/php7 php"
-alias composer="$START_DOCKER -v $HOME/.ssh:/home/.ssh:ro -v $HOME/.composer:/home/.composer yieyu/php7 composer"
+function START_DOCKER { docker run --rm -ti -v $(pwd):/app -u $(id -u):$(id -g) $DOCKER_PARAM "$@"; }
+alias php="START_DOCKER yieyu/php7 php"
+alias composer="START_DOCKER -v $HOME/.ssh:/home/.ssh:ro -v $HOME/.composer:/home/.composer yieyu/php7 composer"
 ```
 
-## Todo
 You may start artisan dev server like this:
 ```
-DOCKER_PARAM="-p 8000:8000" php artisan serve
+DOCKER_PARAM="-p 8000:8000" php artisan serve --host=0.0.0.0
 ```
 
 ## As base image
