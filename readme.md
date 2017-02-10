@@ -9,21 +9,21 @@ any PHP project using composer. As this image is build on top of the
 To pull the docker image you can do it with:
 
 ```
-docker pull yieyu/php7
+docker build -t yieyu/php7 https://raw.githubusercontent.com/yieyu/php7/master/Dockerfile
 ```
 
 ## Usage
 
 Adding these 3 lines into ~/.bash_aliases:
 ```
-function START_DOCKER { docker run --rm -ti -v $(pwd):/app -u $(id -u):$(id -g) $DOCKER_PARAM "$@"; }
-alias php="START_DOCKER yieyu/php7 php"
-alias composer="START_DOCKER -v $HOME/.ssh:/home/.ssh:ro -v $HOME/.composer:/home/.composer yieyu/php7 composer"
+function DOCKER_RUN { docker run --rm -ti -v $(pwd):/app -u $(id -u):$(id -g) $DOCKER_PARAMS "$@"; }
+alias php="DOCKER_RUN yieyu/php7 php"
+alias composer="DOCKER_RUN -v $HOME/.ssh:/home/.ssh:ro -v $HOME/.composer:/home/.composer yieyu/php7 composer"
 ```
 
 You may start artisan dev server like this:
 ```
-DOCKER_PARAM="-p 8000:8000" php artisan serve --host=0.0.0.0
+DOCKER_PARAMS="-p 8000:8000" php artisan serve --host=0.0.0.0
 ```
 
 ## As base image
